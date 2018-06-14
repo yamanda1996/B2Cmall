@@ -1,0 +1,8 @@
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-parent/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-1 81
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-sso-interface/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-3 7
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-sso/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-5 2
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-manager-pojo/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-7 3
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-manager/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-9 2
+127.0.0.1 - - [07/Jun/2018:19:13:32 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-common/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-1 4
+127.0.0.1 - - [07/Jun/2018:20:12:34 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-manager-interface/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-1 51
+127.0.0.1 - - [07/Jun/2018:21:20:57 +0800] "GET /nexus/content/groups/public/cn/e3mall/e3-manager-dao/0.0.1-SNAPSHOT/maven-metadata.xml HTTP/1.1" 404 949 http-bio-8081-exec-3 15

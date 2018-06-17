@@ -130,7 +130,42 @@ Redis集群中至少应该有三个节点。要保证集群的高可用，需要
 	</bean> -->
 ```
 ## Solr给搜索模块提供服务
-本项目使用solrj来实现对索引库的维护。
+本项目使用solrj来实现对索引库的维护。<br>
+### Solr-cloud
+SolrCloud(solr 云)是Solr提供的分布式搜索方案，当需要大规模，容错，分布式索引和检索能力时使用 SolrCloud。
+当一个系统的索引数据量少的时候是不需要使用SolrCloud的，当索引量很大，搜索请求并发很高，这时需要使用SolrCloud来满足这些需求。
+SolrCloud是基于Solr和Zookeeper的分布式搜索方案，它的主要思想是使用Zookeeper作为集群的配置信息中心。<br>
+它有几个特色功能：
+* 集中式的配置信息
+* 自动容错
+* 近实时搜索
+* 查询时自动负载均衡<br>
+#### Solr-cloud系统架构图
+![](https://github.com/yamanda1996/B2Cmall/blob/master/solr-cloud.png)<br>
+物理结构：三个Solr实例（ 每个实例包括两个Core），组成一个SolrCloud。<br>
+逻辑结构：索引集合包括两个Shard（shard1和shard2），shard1和shard2分别由三个Core组成，其中一个Leader两个Replication，Leader是由zookeeper选举产生，zookeeper控制每个shard上三个Core的索引数据一致，解决高可用问题。<br>
+用户发起索引请求分别从shard1和shard2上获取，解决高并发问题。<br>
+#### 本项目实现的solr集群架构
+![](https://github.com/yamanda1996/B2Cmall/blob/master/solr-cloud2.png)<br>
+使用Zookeeper作为集群的管理工具<br>
+* 集群管理：容错、负载均衡。
+* 配置文件的集中管理
+* 集群的入口<br>
+需要实现zookeeper 高可用。需要搭建集群。建议是奇数节点。需要三个zookeeper服务器。<br>
+搭建solr集群需要7台服务器。<br>
+搭建伪分布式：<br>
+需要三个zookeeper节点、四个tomcat节点。<br>
+## 使用activemq同步索引库
+
+
+
+
+
+
+
+
+
+
 
 
 

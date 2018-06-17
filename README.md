@@ -51,8 +51,8 @@ nginx默认采用轮询的方式来实现负载均衡，而这个轮询可以加
 ```xml
 //加权配置
  upstream tomcat {
-	server 192.168.1.145:8080;
-	server 192.168.1.145:8081 weight=2;
+	server 192.168.1.144:8080;
+	server 192.168.1.144:8081 weight=2;
  }
 ```
 ## Redis用来做缓存
@@ -72,6 +72,73 @@ Rdb：快照形式，定期把内存中当前时刻的数据保存到磁盘。Re
 #### AOF形式
 aof形式：append only file。把所有对redis数据库操作的命令，增删改操作的命令。保存到文件中。数据库恢复时把所有的命令执行一遍即可。
 ### Redis集群的搭建
+#### Redis集群架构图
+![](https://github.com/yamanda1996/B2Cmall/blob/master/redis-cluster.jpg)<br>
+![](https://github.com/yamanda1996/B2Cmall/blob/master/redis-cluster2.jpg)<br>
+架构细节<br>
+* 所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽.
+* 节点的fail是通过集群中超过半数的节点检测失效时才生效.
+* 客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可
+* redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster 负责维护node<->slot<->value<br>
+#### 集群的搭建
+Redis集群中至少应该有三个节点。要保证集群的高可用，需要每个节点有一个备份机，所以Redis集群至少需要6台服务器。<br>
+可以搭建伪分布式。可以使用一台虚拟机运行6个redis实例。需要修改redis的端口号7001-7006
+#### Redis的使用
+可以使用JedisClient对redis缓存进行操作，我配置了两个版本的JedisClient，集群版（发布之后使用）和单机版（测试时使用，因为作为服务器的电脑配置太渣了，所以用单机版凑活用吧= =）<br>
+```xml
+	<!-- 连接redis单机版 -->
+	<bean class="cn.e3mall.common.jedis.JedisClientPool" id="jedisClientPool"> 
+		<property name="jedisPool" ref="jedisPool"></property> </bean> <bean class="redis.clients.jedis.JedisPool" 
+		id="jedisPool"> <constructor-arg name="host" value="192.168.1.144"></constructor-arg> 
+		<constructor-arg name="port" value="6379"></constructor-arg> </bean>
+		
+	
+
+	<!-- 连接redis集群版 -->
+	<!-- <bean class="cn.e3mall.common.jedis.JedisClientCluster" id="jedisClientCluster">
+		<property name="jedisCluster" ref="jedisCluster"></property>
+	</bean>
+	<bean class="redis.clients.jedis.JedisCluster" id="jedisCluster">
+		<constructor-arg name="nodes">
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7001"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7002"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7003"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7004"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7005"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.144"></constructor-arg>
+					<constructor-arg name="port" value="7006"></constructor-arg>
+				</bean>
+			</set>
+		</constructor-arg>
+	</bean> -->
+```
+## Solr给搜索模块提供服务
+本项目使用solrj来实现对索引库的维护。
+
+
+
+
+
+
+
+
 
 
 

@@ -156,6 +156,25 @@ SolrCloud是基于Solr和Zookeeper的分布式搜索方案，它的主要思想�
 搭建伪分布式：<br>
 需要三个zookeeper节点、四个tomcat节点。<br>
 ## 使用activemq同步索引库
+### activemq介绍
+ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。ActiveMQ 是一个完全支持JMS1.1和J2EE 1.4规范的 JMS Provider实现,尽管JMS规范出台已经是很久的事情了,但是JMS在当今的J2EE应用中间仍然扮演着特殊的地位。<br>
+### activemq的消息形式
+对于消息的传递有两种类型：<br>
+一种是点对点的，即一个生产者和一个消费者一一对应。<br>
+另一种是发布/订阅模式，即一个生产者产生消息并进行发送后，可以由多个消费者进行接收。<br>
+示意图如下：<br>
+![](https://github.com/yamanda1996/B2Cmall/blob/master/activemq.png)<br>
+JMS定义了五种不同的消息正文格式，以及调用的消息类型，允许你发送并接收以一些不同形式的数据，提供现有消息格式的一些级别的兼容性。<br>
+* StreamMessage -- Java原始值的数据流
+* MapMessage--一套名称-值对
+* TextMessage--一个字符串对象
+* ObjectMessage--一个序列化的 Java对象
+* BytesMessage--一个字节的数据流<br>
+## freemarker实现网页静态化
+FreeMarker是一个用Java语言编写的模板引擎，它基于模板来生成文本输出。FreeMarker与Web容器无关，即在Web运行时，它并不知道Servlet或HTTP。它不仅可以用作表现层的实现技术，而且还可以用于生成XML，JSP或Java 等。<br>
+
+
+
 
 
 

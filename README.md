@@ -172,6 +172,43 @@ JMS定义了五种不同的消息正文格式，以及调用的消息类型，�
 * BytesMessage--一个字节的数据流<br>
 ## freemarker实现网页静态化
 FreeMarker是一个用Java语言编写的模板引擎，它基于模板来生成文本输出。FreeMarker与Web容器无关，即在Web运行时，它并不知道Servlet或HTTP。它不仅可以用作表现层的实现技术，而且还可以用于生成XML，JSP或Java 等。<br>
+### freemarker原理
+![](https://github.com/yamanda1996/B2Cmall/blob/master/freemarker.png)<br>
+其原理和jsp很相似，都是需要提供一个模板（类似于html代码），还需要一些数据（类似于用el表达式写的那部分），这两者结合起来就是freemarker模板引擎的工作原理。<br>
+## SSO系统
+SSO英文全称Single Sign On，单点登录。SSO是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。<br>
+集群环境下会出现要求用户多次登录的情况。<br>
+解决方案：<br>
+1、配置tomcat集群。配置tomcatSession复制。节点数不要超过5个。<br>
+2、可以使用Session服务器，保存Session信息，使每个节点是无状态。需要模拟Session。<br>
+单点登录系统是使用redis模拟Session，实现Session的统一管理。<br>
+## MYCAT
+简单的说，MyCAT就是：<br>
+* 一个彻底开源的，面向企业应用开发的“大数据库集群”
+* 支持事务、ACID、可以替代Mysql的加强版数据库
+* 一个可以视为“Mysql”集群的企业级数据库，用来替代昂贵的Oracle集群
+* 一个融合内存缓存技术、Nosql技术、HDFS大数据的新型SQL Server
+* 结合传统数据库和新型分布式数据仓库的新一代企业级数据库产品
+* 一个新颖的数据库中间件产品<br>
+### MYCAT分片策略
+MyCAT支持水平分片与垂直分片：<br>
+* 水平分片：一个表格的数据分割到多个节点上，按照行分隔。
+* 垂直分片：一个数据库中多个表格A，B，C，A存储到节点1上，B存储到节点2上，C存储到节点3上。<br>
+![](https://github.com/yamanda1996/B2Cmall/blob/master/mycat.png)<br>
+MyCAT通过定义表的分片规则来实现分片，每个表格可以捆绑一个分片规则，每个分片规则指定一个分片字段并绑定一个函数，来实现动态分片算法。<br>
+* Schema：逻辑库，与MySQL中的Database（数据库）对应，一个逻辑库中定义了所包括的Table。
+* Table：表，即物理数据库中存储的某一张表，与传统数据库不同，这里的表格需要声明其所存储的逻辑数据节点DataNode。在此可以指定表的分片规则。
+* DataNode：MyCAT的逻辑数据节点，是存放table的具体物理节点，也称之为分片节点，通过DataSource来关联到后端某个具体数据库上
+* DataSource：定义某个物理库的访问地址，用于捆绑到Datanode上<br>
+### MYCAT实现读写分离
+数据库读写分离对于大型系统或者访问量很高的互联网应用来说，是必不可少的一个重要功能。对于MySQL来说，标准的读写分离是主从模式，一个写节点Master后面跟着多个读节点，读节点的数量取决于系统的压力，通常是1-3个读节点的配置。<br>
+![](https://github.com/yamanda1996/B2Cmall/blob/master/mycat2.png)<br>
+
+
+
+
+
+
 
 
 
